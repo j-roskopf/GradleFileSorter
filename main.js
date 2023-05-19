@@ -1,32 +1,43 @@
 const fs = require('fs')
 const path = require('path')
-const {reorgGradleFile} = require("./sorter");
+const {reorgGradleFileFromFilePath} = require("./sorter");
 
-const projectPath = '/Users/joeroskopf/Code/NowInAndroid/nowinandroid'
+if (process.argv.length !== 3) {
+    console.error('Expected exactly one argument for a file path to the root directory!');
+    process.exit(1);
+}
 
-gradleKtsFiles = recFindByExt(projectPath,'gradle.kts')
+const projectPath = process.argv[2]
 
-gradleKtsFiles.forEach(file => {
-    if(!file.endsWith("settings.gradle.kts")) {
-        reorgGradleFile(file)
+// grab all files in the given file path ending with gradle.kts
+gradleKtsFiles = recFindByExt(projectPath, 'gradle.kts', null, null)
+
+gradleKtsFiles.forEach(filePath => {
+    // we don't really support settings.gradle.kts
+    if (!filePath.endsWith("settings.gradle.kts")) {
+        reorgGradleFileFromFilePath(filePath)
     }
 })
-function recFindByExt(base,ext,files,result)
-{
+
+/**
+ * Recursively find the files with a given extension
+ * @param base
+ * @param ext
+ * @param files
+ * @param result
+ * @returns {*[]}
+ */
+function recFindByExt(base, ext, files, result) {
     files = files || fs.readdirSync(base)
     result = result || []
 
     files.forEach(
         function (file) {
             const newBase = path.join(base, file);
-            if ( fs.statSync(newBase).isDirectory() )
-            {
-                result = recFindByExt(newBase,ext,fs.readdirSync(newBase),result)
-            }
-            else
-            {
-                if ( file.substr(-1*(ext.length+1)) === '.' + ext )
-                {
+            if (fs.statSync(newBase).isDirectory()) {
+                result = recFindByExt(newBase, ext, fs.readdirSync(newBase), result)
+            } else {
+                if (file.substr(-1 * (ext.length + 1)) === '.' + ext) {
                     result.push(newBase)
                 }
             }
