@@ -1,5 +1,7 @@
 # GradleFileSorter
 
+[![npm](https://img.shields.io/npm/v/gradle-file-sorter)](https://www.npmjs.com/package/gradle-file-sorter)
+
 Sorts all Gradle files in an Android app according to an arbitrary and non-customizable process.
 
 ## Running 
