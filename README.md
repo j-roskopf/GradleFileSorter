@@ -11,8 +11,6 @@ For example `node main.js "/Users/joe/Code/NowInAndroid/nowinandroid"`
 
 It has only been tested on a few projects ([NowInAndroid](https://github.com/android/nowinandroid), [Tivi](https://github.com/chrisbanes/tivi)) so it probably doesn't work for all projects  :)
 
-Also, only supports .kts files ATM.
-
 ## NowInAndroid example
 
 Input:

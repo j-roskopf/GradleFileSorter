@@ -12,12 +12,27 @@ const projectPath = process.argv[2]
 // grab all files in the given file path ending with gradle.kts
 gradleKtsFiles = recFindByExt(projectPath, 'gradle.kts', null, null)
 
-gradleKtsFiles.forEach(filePath => {
-    // we don't really support settings.gradle.kts
-    if (!filePath.endsWith("settings.gradle.kts")) {
-        reorgGradleFileFromFilePath(filePath)
-    }
-})
+if (gradleKtsFiles.length !== 0) {
+    gradleKtsFiles.forEach(filePath => {
+        // we don't really support settings.gradle.kts
+        if (!filePath.endsWith("settings.gradle.kts")) {
+            reorgGradleFileFromFilePath(filePath)
+        }
+    })
+}
+
+// grab all files in the given file path ending with gradle
+gradleGroovyFiles = recFindByExt(projectPath, 'gradle', null, null)
+
+if (gradleGroovyFiles.length !== 0) {
+    gradleGroovyFiles.forEach(filePath => {
+        // we don't really support settings.gradle
+        if (!filePath.endsWith("settings.gradle")) {
+            reorgGradleFileFromFilePath(filePath)
+        }
+    })
+}
+
 
 /**
  * Recursively find the files with a given extension
