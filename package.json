@@ -1,6 +1,6 @@
 {
   "name": "gradle-file-sorter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sorts the dependencies within Gradle files for an Android app",
   "main": "main.js",
   "scripts": {
